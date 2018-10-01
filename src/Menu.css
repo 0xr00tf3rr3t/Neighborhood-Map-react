@@ -1,0 +1,12 @@
+.menu{
+    width : 25%;
+    box-shadow: 10px 10px 10px grey;
+
+}
+.main-container {
+    display:flex;
+    flex-direction:row;
+}
+.menu-title{
+    background-color: darkred;
+}
