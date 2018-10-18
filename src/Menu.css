@@ -1,12 +1,26 @@
 .menu{
     width : 25%;
     box-shadow: 10px 10px 10px grey;
-
 }
 .main-container {
     display:flex;
     flex-direction:row;
-}
-.menu-title{
     background-color: darkred;
+
+}
+.menu-item{
+    margin:10px 20px;
+
+
+}
+.menu-item:hover{
+    background-color:black;
+    color:white;
+}
+.menu-container{
+
+    list-style: none;
+    padding-left: 0;
+
+
 }

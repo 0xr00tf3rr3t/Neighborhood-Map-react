@@ -1,5 +1,6 @@
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React,{Component} from 'react'
+import './Map.css'
 
 export class MapContainer extends Component {
     state = {
@@ -8,40 +9,43 @@ export class MapContainer extends Component {
         selectedPlace: {},
         markers:[],
         APIKEY:'6286ba4b73755ef30f2e7366ae0c6fb5',
-        pictures:[]
+        pictures:[]//Holds the pictures to be rendered later on
     };
-componentDidMount() {
-    this.setState({
-            markers: [
-                {name: "Catedral de San Juan Bautista", lat: 18.4656722, lng: -66.1180264},
-                {name: "Paseo de La Princesa", lat: 18.463370, lng: -66.118666},
-                {name: "El Morro", lat: 18.4709583, lng: -66.1236127}
-            ]
-        }
-    );
-    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + this.state.APIKEY + '&tags=nyc&per_page=10&page=1&format=json&nojsoncallback=1')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (j) {
-            alert(JSON.stringify(j));
-            let picArray = j.photos.photo.map((pic) => {
 
-                return 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
-            });
-            this.setState({pictures: picArray});
-        }.bind(this));
-}
+getPictures=  (name)=>
+{fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + this.state.APIKEY + '&tags='+ name.replace(/\s+/g, '') +'& per_page=10&page=1&format=json&nojsoncallback=1')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (j) {
+        let picArray = j.photos.photo.map((pic) => {
 
-    onMarkerClick = (props, marker, e) => {
+            return 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
+        });
+        this.setState({pictures: picArray});
+    }.bind(this));};
+    componentDidMount() {
+        this.setState(
+            {
+                markers: this.props.markers
+            }
+
+        );
+        this.getPictures('PaseoLaPrincesa');
+
+    }
+
+    onMarkerClick = (props, marker) => {
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
-            showingInfoWindow: true
-        })
-    };
+            showingInfoWindow: true,
+            pictures:[]
+        });
+        this.getPictures(this.state.selectedPlace.name)};
 
-    onMapClicked = (props) => {
+
+    onMapClicked = () => {
         if (this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
@@ -64,7 +68,7 @@ componentDidMount() {
 
                 {
                     markers.map((marker)=>
-
+    
                     <Marker key={marker.name} onClick =  {this.onMarkerClick}
                             position = { {lat:marker.lat, lng:marker.lng} }
                             name = {marker.name}
@@ -74,19 +78,21 @@ componentDidMount() {
                 <InfoWindow
                     marker = {this.state.activeMarker}
                     visible = {this.state.showingInfoWindow}>
+                    
+<div>
+    <h1>{this.state.selectedPlace.name}</h1>
+</div>
+
                     <div>
-                        <h1>{this.state.selectedPlace.name}</h1>
-                        <div>
-                            {
+                    {
 
-                                this.state.pictures.map((url)=>(
-
-                                    <img key={url} src={url}/>
-                                    )
+                        this.state.pictures.map((url) => ( //TODO: Add  better aesthetic
+                                    <img className={'marker-picture'} key={url} src={url}/>
                                 )
-                            }
+                        )
+                    }
                     </div>
-                    </div>
+
                 </InfoWindow>
 
             </Map>
