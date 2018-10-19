@@ -68,11 +68,14 @@ getPictures=  (name)=>
 
                 {
                     markers.map((marker)=>
-    
-                    <Marker key={marker.name} onClick =  {this.onMarkerClick}
-                            position = { {lat:marker.lat, lng:marker.lng} }
-                            name = {marker.name}
-                    />
+                    {if(marker.active){
+                        return(   <Marker key={marker.name} onClick =  {this.onMarkerClick}
+                                          position = { {lat:marker.lat, lng:marker.lng} }
+                                          name = {marker.name}
+                        />)
+                    }
+
+                    }
                 )}
 
                 <InfoWindow

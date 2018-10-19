@@ -11,10 +11,11 @@ class MainPage extends Component
 {
     state={
         markers: [
-            {name: "Catedral de San Juan Bautista", lat: 18.4656722, lng: -66.1180264, active:false},
-            {name: "Paseo de La Princesa", lat: 18.463370, lng: -66.118666,active:false},
-            {name: "El Morro", lat: 18.4709583, lng: -66.1236127,active:false}
+            {name: "Catedral de San Juan Bautista", lat: 18.4656722, lng: -66.1180264, active:true},
+            {name: "Paseo de La Princesa", lat: 18.463370, lng: -66.118666,active:true},
+            {name: "El Morro", lat: 18.4709583, lng: -66.1236127,active:true}
         ]
+
     };
     visibilityChanger= (marker,index)=> {
 

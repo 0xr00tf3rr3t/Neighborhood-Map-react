@@ -27,12 +27,22 @@ this.state = {
                {
                    markers.map((marker,index) => {
                        return (
+                           <div className={'menu-item-container'}>
                            <li key={marker.lat} className='menu-item' onClick={()=>{
                                console.log(marker.active);
                                this.props.visibilityChanger(marker,index);
                            }
                            }
                            > {marker.name} </li>
+                               <div className={"toggleBtn"} onClick={()=>{
+                                   console.log(marker.active);
+                                   this.props.visibilityChanger(marker,index);
+                               }
+                               } >
+
+                               </div>
+                           </div>
+
                        )
                    })
                }
