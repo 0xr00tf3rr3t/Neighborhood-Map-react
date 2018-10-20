@@ -2,19 +2,9 @@ import React, {Component} from 'react'
 import "./Menu.css"
 
 class Menu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            markers: []
-        };
-    }
-
-    componentDidMount() {
-      
-    }
-
+  
     render() {
-        const markers = this.state.markers;
+        const markers = this.props.markers;
         return (
             <ul className={'menu-container'}>
                 {

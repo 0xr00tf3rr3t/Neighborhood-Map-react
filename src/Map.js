@@ -3,15 +3,6 @@ import React, {Component} from 'react'
 import './Map.css'
 
 export class MapContainer extends Component {
-
-
-
-
-
-
-
-
-
     render() {
         const markers = this.props.markers;
         return (
