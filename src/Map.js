@@ -15,27 +15,27 @@ export class MapContainer extends Component {
                  onClick={this.props.onMapClicked}>
                 {
                     markers.map((marker) => {
+
                             if (marker.active) {
 
-                                return (<Marker key={marker.name} onClick={this.props.onMarkerClick}
+                                return (
+                                    <Marker key={marker.name} onClick={this.props.onMarkerClick}
                                                 position={{lat: marker.lat, lng: marker.lng}}
-                                                name={marker.name}
+                                                name={marker.name} ref={this.props.markerPropsLoader}
                                 />)
                             }
                         }
                     )}
-                <InfoWindow
-                    marker={this.props.activeMarker}
-                    visible={this.props.showingInfoWindow}>
 
+                <InfoWindow
+                    marker= {this.props.activeMarker}
+                    visible= {this.props.showingInfoWindow}>
                     <div>{
                         <h1>{this.props.selectedPlace.name}</h1>
                     }
                     </div>
-
                     <div>
                         {
-
                             this.props.pictures.map((url) => ( //TODO: Add  better aesthetic
                                     <img className={'marker-picture'} key={url} src={url}/>
                                 )

@@ -9,12 +9,11 @@ class Menu extends Component {
             <ul className={'menu-container'}>
                 {
                     markers.map((marker, index) => {
+
                         return (
                             <div className={'menu-item-container'}>
                                 <li key={marker.lat} className='menu-item' onClick={() => {
-
                                     this.props.onListClick(marker);
-
                                 }
                                 }
                                 > {marker.name} </li>
@@ -26,7 +25,6 @@ class Menu extends Component {
 
                                 </div>
                             </div>
-
                         )
                     })
                 }
